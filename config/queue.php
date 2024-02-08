@@ -106,4 +106,9 @@ return [
         'table' => 'failed_jobs',
     ],
 
+    'queue_names' => [
+        'default' => 'default',
+        'notification_user' => 'Notification',
+    ]
+
 ];

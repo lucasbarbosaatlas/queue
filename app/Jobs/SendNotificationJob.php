@@ -23,7 +23,7 @@ class SendNotificationJob implements ShouldQueue
      */
     public function __construct()
     {
-        //
+        $this->onQueue(config('queue.queue_names')['notification_user']);
     }
 
     /**
@@ -32,5 +32,10 @@ class SendNotificationJob implements ShouldQueue
     public function handle(): void
     {
         User::all()->each(fn(User $user) => $user->notify(new NotifyToUsers));
+    }
+
+    public function tags()
+    {
+        return ['Notification'];
     }
 }
