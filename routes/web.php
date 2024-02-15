@@ -37,6 +37,24 @@ Route::get('run-batch', function () {
 
 });
 
+Route::get('/invoice', [App\Http\Controllers\UserController::class, 'index'])->name('invoice');
+Route::get('/invoice/edit/{invoice}', [App\Http\Controllers\UserController::class, 'edit'])->name('invoice.edit');
+Route::post('/invoice', [App\Http\Controllers\UserController::class, 'store'])->name('invoice.store');
+Route::delete('/invoice/delete/{invoice}', [App\Http\Controllers\UserController::class, 'edit'])->name('invoice.delete');
+
+Route::post('/invoice/update/{invoice}', [App\Http\Controllers\UserController::class, 'update'])->name('invoice.update')
+    ->middleware('can:can-edit,invoice');
+ 
+/* Sem middleware para recuperar a mensagem */
+Route::post('/invoice/update/{invoice}', [App\Http\Controllers\UserController::class, 'update'])->name('invoice.update');
+
+/* Route::post('/invoice', [App\Http\Controllers\UserController::class, 'store'])->name('invoice.store')
+    ->middleware('isAdmin', App\Models\Invoice::class);*/
+
+
+/* Route::post('/invoice', [App\Http\Controllers\UserController::class, 'store'])->name('invoice.store')
+    ->can('isAdmin', App\Models\Invoice::class);  */
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
