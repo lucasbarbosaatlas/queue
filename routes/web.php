@@ -37,13 +37,18 @@ Route::get('run-batch', function () {
 
 });
 
+
+
+/* INVOICE */
+
 Route::get('/invoice', [App\Http\Controllers\UserController::class, 'index'])->name('invoice');
 Route::get('/invoice/edit/{invoice}', [App\Http\Controllers\UserController::class, 'edit'])->name('invoice.edit');
 Route::post('/invoice', [App\Http\Controllers\UserController::class, 'store'])->name('invoice.store');
-Route::delete('/invoice/delete/{invoice}', [App\Http\Controllers\UserController::class, 'edit'])->name('invoice.delete');
+Route::delete('invoice/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('invoice.destroy');
 
-Route::post('/invoice/update/{invoice}', [App\Http\Controllers\UserController::class, 'update'])->name('invoice.update')
-    ->middleware('can:can-edit,invoice');
+
+/* Route::post('/invoice/update/{invoice}', [App\Http\Controllers\UserController::class, 'update'])->name('invoice.update')
+    ->middleware('can:can-edit,invoice'); */
  
 /* Sem middleware para recuperar a mensagem */
 Route::post('/invoice/update/{invoice}', [App\Http\Controllers\UserController::class, 'update'])->name('invoice.update');

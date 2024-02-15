@@ -6,14 +6,12 @@
         <div class="col-md-12"> 
             <h1>Invoices</h1>
 
-            {{-- @can('isAdmin','App\Models\Invoice')
-                <a href="">Criar Invoice</a>
-            @endcan --}}
-
-            <form action="{{ route('invoice.store') }}" method="post">
-                @csrf
-                <button type="submit">Create Invoice</button>
-            </form>
+            @can('isAdmin','App\Models\Invoice')
+                <form action="{{ route('invoice.store') }}" method="post">
+                    @csrf
+                    <button type="submit">Create Invoice</button>
+                </form>
+            @endcan
 
             <hr>
             <ul>
@@ -24,9 +22,18 @@
                             <a href="/invoice/edit/{{$invoice->id}}">Edit</a>
                         @endcan
                         
-                        @can('delete',$invoice)
-                            <a href="/invoice/delete/{{$invoice->id}}">Deletar</a>
+                        @can('delete', $invoice)
+                        <form action="{{ route('invoice.destroy', ['id' => $invoice->id]) }}" method="POST" style="display: inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" style="background: none; border: none; padding: 0;
+                            cursor: pointer;
+                            color: blue;
+                            text-decoration: underline;
+                            outline: none; /">Delete</a>
+                        </form>
                         @endcan
+
                     </li>
                 @endforeach
             </ul>

@@ -75,7 +75,7 @@ class UserController extends Controller
         $response = Gate::inspect('can-edit', $invoice);
 
         if ($response->allowed()) {
-            var_dump('updated');
+            dd('updated');
         }else{
             return $response->message();
         }
@@ -84,8 +84,11 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $invoice = Invoice::findOrFail($id);
+        $invoice->delete();
+
+        return redirect()->back();
     }
 }
